@@ -1,9 +1,10 @@
 import React from 'react'
+import Header from './Header';
 
 const Layout = (props) => {
   return ( 
     <>
-      <h1>CHALLENGE REACT ALKEMY</h1>
+      <Header />
       {props.children}
     </>
    );
