@@ -10,7 +10,7 @@ const SearchHero = () => {
   const validateHero = values => {
     //searchHeroURL(values);
     
-    console.log(heroesFound)
+    //console.log(heroesFound)
   }
 
   return (

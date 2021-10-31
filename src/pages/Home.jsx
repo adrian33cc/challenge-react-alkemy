@@ -12,7 +12,7 @@ const Home = () => {
   const heroesContext = useContext(HeroesContext);
   const { heroesFound, countHero, countVillain } = heroesContext;
 
-  const [heroesList, setHeroesList] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+  const [heroesList, setHeroesList] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9, 10,11,12,13,14,15,16,17,,18,19,20]);
   const [heroes, setHeroes] = useState([]);
   const [teamComplete, setTeamComplete] = useState(false);
   const [visible, setVisible] = useState(true);
@@ -29,7 +29,6 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
-    console.log(teamComplete);
     if (countHero <= 0 && countVillain <= 0) {
       setTeamComplete(true);
     }
@@ -38,7 +37,6 @@ const Home = () => {
     }
   }, [countHero, countVillain, heroesFound]);
 
-  console.log(heroes);
   //heroes.map(heroe => console.log(heroe.biography.full-name))
 
   return (

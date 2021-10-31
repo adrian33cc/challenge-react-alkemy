@@ -4,6 +4,7 @@ import Layout from "../components/layout/Layout";
 import HeroesContext from "../context/heroes/heroesContext";
 import HeroeCard from "../components/heroes/HeroeCard";
 import HeroesList from "../components/heroes/HeroesList";
+import { Link } from "react-router-dom";
 
 const MyTeam = () => {
   //Todos estos guardaran el promedio
@@ -18,6 +19,7 @@ const MyTeam = () => {
   const [statsTeam, setStatsTeam] = useState(initialStats);
   const heroesContext = useContext(HeroesContext);
   const { team } = heroesContext;
+  const [statsHero, setStatsHero] = useState([])
 
   useEffect(() => {
     let stat = {
@@ -46,18 +48,31 @@ const MyTeam = () => {
 
       let strength = parseInt(heroe.powerstats.strength) || 0;
       stat.strength = stat.strength + strength;
+
+      //setStatsHero([...statsHero,heroe.powerstats])
     });
     //console.log(stat)
     setStatsTeam(stat);
   }, []);
 
-  console.log(statsTeam);
+  const [majorPower, setMajorPower] = useState(0);
+  console.log(statsHero)
+
+  useEffect(() => {
+    
+
+  }, [team])
+
+  //console.log(statsTeam);
 
   //console.log(team);
   return (
     <Layout>
       <Container>
-        <h1 className="text-center p-4 ">Tu equipo</h1>
+        <Stack direction="horizontal" >
+          <Link to='/' className="my-4 btn btn-warning">Regresar</Link>
+          <h1 className="text-center p-4 ">Tu equipo</h1>
+        </Stack>
 
         {team.length !== 0 ? (
           <Row className="mt-4">
