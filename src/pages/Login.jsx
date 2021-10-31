@@ -9,7 +9,7 @@ const Login = () => {
   return (
     <Layout>
       <LoginForm/>
-      <Link to="/myteam">Ir al Myteam</Link>  
+      <Link to="/">Ir al Home</Link>  
     </Layout>
   );
 };

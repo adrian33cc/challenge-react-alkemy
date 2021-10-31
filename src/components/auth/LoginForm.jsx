@@ -1,7 +1,7 @@
 import { Field, Form, Formik, ErrorMessage } from "formik";
 import React from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
-import clienteAxios from "../../config/axios";
+import { authAxios } from "../../config/axios";
 
 const LoginForm = () => {
   const validateData = (values) => {
@@ -23,7 +23,7 @@ const LoginForm = () => {
 
   const postDataUser = async (values) => {
     try {
-      const response = await clienteAxios.post('/',values);
+      const response = await authAxios.post('/',values);
       console.log(response)
     } catch (error) {
       console.log(error)

@@ -7,3 +7,39 @@
   box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
   border-radius: 10px;
 }
+
+.heroCardTitle{
+  text-decoration: none;
+  color: #000;
+}
+
+
+.heroCardTitle:hover{
+  color: #00929e;
+}
+
+.hero-image{
+  max-width: 300px;
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+}
+
+.details-hero{
+  margin-top: 10px;
+}
+
+.detail-hero{
+  align-items: center;
+}
+
+.detail-hero p{
+  margin: 0;
+  font-size: 24px;
+}
+
+.detail-hero h3{
+  font-weight: 700;
+}
+
+.add-hero{
+  cursor: pointer;
+}
