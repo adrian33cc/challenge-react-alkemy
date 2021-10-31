@@ -1,18 +1,25 @@
-import React, { useContext } from "react";
-import { Badge, Card, Stack } from "react-bootstrap";
+import React, { useState, useContext } from "react";
+import { Badge, Button, Card, Stack } from "react-bootstrap";
+import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
 import HeroesContext from "../../context/heroes/heroesContext";
 
 const HeroeCard = ({ heroe }) => {
+  let history = useHistory();
+
   const {
     name,
     image: { url },
     biography,
+    powerstats:{combat,durability, intelligence, power, speed, strength}
   } = heroe;
 
-  const heroesContext = useContext(HeroesContext);
-  const { handleHero, addHeroTeam } = heroesContext;
+  //console.log(heroe)
 
+  const heroesContext = useContext(HeroesContext);
+  const { handleHero, addHeroTeam, removeHeroTeam } = heroesContext;
+  const acum = combat || 0 + durability ||0 + intelligence || 0 + power || 0 + speed || 0 + strength || 0;
+  const acum2 = parseInt(combat) +  parseInt(durability)  + parseInt(intelligence)  + parseInt(power)  + parseInt(speed)  + parseInt(strength) ;
   const isGood = (alignment) => {
     if (alignment === "good") {
       return <Badge bg="success"> {alignment.toUpperCase()} </Badge>;
@@ -35,16 +42,25 @@ const HeroeCard = ({ heroe }) => {
             </Link>
             <Card.Subtitle>Alias: {biography.aliases[0]} </Card.Subtitle>
           </Stack>
-          {isGood(biography.alignment)}
+          <Stack gap={1}>
+            {isGood(biography.alignment)}
+            <Badge> Total: {acum2} </Badge>
+          </Stack>
         </Stack>
       </Card.Header>
 
-      <Card.Img
-        variant="top"
-        src={url}
-        onClick={() => addHeroTeam(heroe)}
-        className="add-hero"
-      />
+      <div className=" add-hero">
+        <Card.Img variant="top" src={url} onClick={() => addHeroTeam(heroe)} />
+        {history.location.pathname === "/myteam" ? (
+          <Button variant="danger" onClick={() => removeHeroTeam(heroe)}>
+            Borrar
+          </Button>
+        ) : (
+          <Button variant="success" onClick={() => addHeroTeam(heroe)}>
+            Agregar
+          </Button>
+        )}
+      </div>
     </Card>
   );
 };

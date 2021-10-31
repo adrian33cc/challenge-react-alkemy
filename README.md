@@ -1,4 +1,4 @@
-#Challenge React Alkemy - Adrian Reyes Delgado
+# Challenge React Alkemy - Adrian Reyes Delgado
 
 ```
 #Instalar Dependencias
@@ -10,6 +10,6 @@ yarn dev
 ```
 
 
-##Existe un deploy de prueba en 
+## Existe un deploy de prueba en 
 
 https://challengereactadrianrd.netlify.app/

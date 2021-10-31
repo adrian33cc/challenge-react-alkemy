@@ -1,15 +1,23 @@
 import React, { useReducer } from "react";
 import { heroesAxios } from "../../config/axios";
-import { ADD_HERO_TEAM, ADD_VILLAIN_TEAM, HERO_SEARCH, HERO_SELECT, HERO_URL } from "../types";
+import {
+  ADD_HERO_TEAM,
+  ADD_VILLAIN_TEAM,
+  HERO_SEARCH,
+  HERO_SELECT,
+  HERO_URL,
+  REMOVE_HERO_TEAM,
+  REMOVE_VILLAIN_TEAM,
+} from "../types";
 import HeroesContext from "./heroesContext";
 import HeroesReducer from "./heroesReducer";
 const HeroesState = (props) => {
   const initialState = {
-    team: [],
+    team: JSON.parse( localStorage.getItem('team')) || [],
     heroSelect: {},
-    countHero:3,
-    countVillain:3,
-    heroesFound:{},
+    countHero: 3,
+    countVillain: 3,
+    heroesFound: {},
   };
 
   const [state, dispatch] = useReducer(HeroesReducer, initialState);
@@ -37,48 +45,61 @@ const HeroesState = (props) => {
   };
 
   const searchHero = async ({ hero }) => {
-    console.log(hero);
 
     try {
       const response = await heroesAxios.get(`/search/${hero}`);
-      console.log(response);
-      if(response.data.response === 'success'){
-        console.log('Recibi el arreglo de heroes')
+      if (response.data.response === "success") {
         dispatch({
           type: HERO_SEARCH,
           payload: response.data.results,
         });
-      }else{
-        console.log('No se encontraron heroes')
+      } else {
+        console.log("No se encontraron heroes");
       }
-      
     } catch (error) {
       console.log(error);
     }
   };
 
   const addHeroTeam = (heroe) => {
-    
-    const {biography:{alignment}} = heroe;
-    
+    const {
+      biography: { alignment },
+    } = heroe;
+
     const isIncludeTeam = state.team.includes(heroe);
 
-
-    if(!isIncludeTeam && (state.countHero > 0 || state.countVillain > 0) ){
-      if(alignment ==  'good'){
+    if (!isIncludeTeam && (state.countHero >= 0 || state.countVillain >= 0)) {
+      if (alignment == "good") {
         dispatch({
-          type:ADD_HERO_TEAM,
-          payload:heroe
-        })
-      }else{
+          type: ADD_HERO_TEAM,
+          payload: heroe,
+        });
+      } else {
         dispatch({
-          type:ADD_VILLAIN_TEAM,
-          payload:heroe
-        })
+          type: ADD_VILLAIN_TEAM,
+          payload: heroe,
+        });
       }
     }
-   
-  }
+  };
+
+  const removeHeroTeam = (heroe) => {
+    const {
+      biography: { alignment },
+    } = heroe;
+
+    if (alignment == "good") {
+      dispatch({
+        type: REMOVE_HERO_TEAM,
+        payload: heroe,
+      });
+    } else {
+      dispatch({
+        type: REMOVE_VILLAIN_TEAM,
+        payload: heroe,
+      });
+    }
+  };
 
   return (
     <HeroesContext.Provider
@@ -86,12 +107,13 @@ const HeroesState = (props) => {
         team: state.team,
         heroSelect: state.heroSelect,
         countHero: state.countHero,
-        countVillain:state.countVillain,
-        heroesFound:state.heroesFound,
+        countVillain: state.countVillain,
+        heroesFound: state.heroesFound,
         handleHero,
         searchHeroURL,
         searchHero,
-        addHeroTeam
+        addHeroTeam,
+        removeHeroTeam,
       }}
     >
       {props.children}
